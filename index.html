@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PDF Generator with User Input</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="bg-gray-100 font-sans p-6">
+  <div class="max-w-3xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+    <h1 class="text-3xl font-bold text-center mb-6">PDF Generator</h1>
+    
+    <!-- User Text Input -->
+    <div class="mb-6">
+      <label for="userText" class="block text-gray-700 font-medium mb-2">Enter your text:</label>
+      <textarea id="userText" rows="6" placeholder="Type your content here..." class="w-full p-4 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+    </div>
+    
+    <!-- Button to generate PDF -->
+    <button id="generatePdfBtn" class="w-full bg-blue-500 text-white py-3 rounded hover:bg-blue-600 transition duration-300">
+      Generate PDF
+    </button>
+  </div>
+
+  <script>
+    document.getElementById('generatePdfBtn').addEventListener('click', function () {
+      const userText = document.getElementById('userText').value.trim();
+      if (!userText) {
+        alert('Please enter some text to generate PDF.');
+        return;
+      }
+
+      // Initialize jsPDF
+      const { jsPDF } = window.jspdf;
+      const pdf = new jsPDF();
+
+      // Add user text to the PDF
+      pdf.text(userText, 10, 10); // The first two numbers represent the position on the PDF (X, Y)
+
+      // Save the PDF as 'document.pdf'
+      pdf.save('document.pdf');
+    });
+  </script>
+</body>
+</html>
